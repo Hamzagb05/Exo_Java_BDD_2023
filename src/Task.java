@@ -1,17 +1,19 @@
-// fichier : Task.java
+package src;
 
-public class Task {
+import java.io.Serializable;
+import java.time.LocalDate;
+
+public class Task implements Serializable {
     private String title;
     private String description;
-    private String dueDate; // Date d'échéance
-    private boolean isCompleted; // Tâche terminée ou non
+    private LocalDate dueDate;
+    private boolean isCompleted;
 
-    // Constructeur
-    public Task(String title, String description, String dueDate) {
+    public Task(String title, String description, LocalDate dueDate) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.isCompleted = false; // Par défaut, une tâche n'est pas terminée
+        this.isCompleted = false;
     }
 
     // Getters
@@ -23,7 +25,7 @@ public class Task {
         return description;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
@@ -32,18 +34,6 @@ public class Task {
     }
 
     // Setters
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
