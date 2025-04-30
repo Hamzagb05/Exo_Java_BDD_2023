@@ -56,7 +56,7 @@
     int L = 4;
     int H = 5;
 
-    String input = request.getParameter("text");
+    String input = request.getParameter("text"); 
     if (input != null && !input.isEmpty()) {
         input = input.toUpperCase();
 
