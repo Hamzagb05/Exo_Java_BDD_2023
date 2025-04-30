@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;  
             background: #f8f9fa;
             text-align: center;
-            padding-top: 30px;
+            padding-top: 30px; 
         }
         form {
             margin-bottom: 20px;
