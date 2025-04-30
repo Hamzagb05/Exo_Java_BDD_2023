@@ -14,23 +14,28 @@
 
     <%
         String mot = request.getParameter("mot");
-        if (mot != null) {
+        if (mot != null && !mot.isEmpty()) {
             mot = mot.toUpperCase();
-            int L = 4;
-            int H = 5;
+            int L = 4; // Largeur d'une lettre
+            int H = 5; // Hauteur
 
             String[] ascii = {
-                " A  B  C  D  E  F  G  H  I  J  ? ",
-                "#  ## ## ### ### ## ### ## ### # ",
-                "#  #  # #   #   #  #   #  #  # # ",
-                "### ### ##  ### ### ### ## ### # ",
-                "#  #   # #     #   #   #  #  # # ",
-                "#  ## ## ### ###   ## ### ## ###"
+                " A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  ? ",
+                "#  ## ## ### ### ## ### ## ### #  ## #  # ## #  ## ### ### ## ### ## #  ## ### # ",
+                "#  #  # #   #   #  #   #  #  # # #   # # # # ## #   #   # #  #  #  #  #  #   # # ",
+                "### ### ##  ### ### ### ## ### #  ### ### # ## ### ### ## #  ### ### ### ### # ",
+                "#  #   # #     #   #   #  #  # #   #   # # # # #   #   # #     #   #   #  #   # ",
+                "#  ## ## ### ###   ## ### ## ### #  ## ### # # ## ### ## #  ### ###   #  ## ###"
             };
 
             for (int i = 1; i <= H; i++) {
                 for (char c : mot.toCharArray()) {
-                    int index = (c >= 'A' && c <= 'Z') ? c - 'A' : 26;
+                    int index;
+                    if (c >= 'A' && c <= 'Z') {
+                        index = c - 'A';
+                    } else {
+                        index = 26; // ? pour les caractères non alphabétiques
+                    }
                     out.print(ascii[i].substring(index * L, (index + 1) * L));
                 }
                 out.println("<br>");
