@@ -6,7 +6,7 @@
     <title>ASCII Art</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif; 
             background: #f8f9fa;
             text-align: center;
             padding-top: 30px;
