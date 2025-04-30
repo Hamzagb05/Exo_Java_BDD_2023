@@ -1,46 +1,105 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>ASCII Art</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            text-align: center;
+            padding-top: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 300px;
+        }
+        input[type="submit"] {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            font-family: monospace;
+            font-size: 16px;
+            text-align: left;
+            display: inline-block;
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Convertisseur ASCII Art</h1>
+    <h1>🅰️ ASCII ART CONVERTER</h1>
 
     <form method="post">
-        <label>Mot à afficher :</label>
-        <input type="text" name="mot">
-        <button type="submit">Afficher</button>
+        <label>Entrez un mot ou un chiffre :</label>
+        <input type="text" name="text" />
+        <input type="submit" value="Afficher" />
     </form>
 
-    <%
-        String mot = request.getParameter("mot");
-        if (mot != null && !mot.isEmpty()) {
-            mot = mot.toUpperCase();
-            int L = 4; // Largeur d'une lettre
-            int H = 5; // Hauteur
+<%
+    int L = 4;
+    int H = 5;
 
-            String[] ascii = {
-                " A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  ? ",
-                "#  ## ## ### ### ## ### ## ### #  ## #  # ## #  ## ### ### ## ### ## #  ## ### # ",
-                "#  #  # #   #   #  #   #  #  # # #   # # # # ## #   #   # #  #  #  #  #  #   # # ",
-                "### ### ##  ### ### ### ## ### #  ### ### # ## ### ### ## #  ### ### ### ### # ",
-                "#  #   # #     #   #   #  #  # #   #   # # # # #   #   # #     #   #   #  #   # ",
-                "#  ## ## ### ###   ## ### ## ### #  ## ### # # ## ### ## #  ### ###   #  ## ###"
-            };
+    String input = request.getParameter("text");
+    if (input != null && !input.isEmpty()) {
+        input = input.toUpperCase();
 
-            for (int i = 1; i <= H; i++) {
-                for (char c : mot.toCharArray()) {
-                    int index;
-                    if (c >= 'A' && c <= 'Z') {
-                        index = c - 'A';
-                    } else {
-                        index = 26; // ? pour les caractères non alphabétiques
-                    }
-                    out.print(ascii[i].substring(index * L, (index + 1) * L));
+        // A-Z (26) + 0-9 (10) + ? (default) = 37 caractères
+        // => total length par ligne = 37 * L = 148
+
+        String[] rows = {
+            " #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # # # ### ### ### ##  ### ### # # # # # # # # # # ### ###  #  ##  ## # # ### ###  #  ##  ",
+            "# # # # #   # # #   #   #   # #  #    # ##  #   ### # # # # # # # # # # #    #  # # # # # # # #  #    #  # # # # #   # # # #   # # # # #  ",
+            "### ##  #   # # ##  ##  # # ###  #    # #   #   # # ### # # ### # # ##  ###  #  # # # # # #  #   #   ##  ### ##  # # ### ##  #   ### ##   ",
+            "# # # # #   # # #   #   # # # #  #    # ##  #   # # ### # # #   # # # #   #  #  # # # # ### # #  #  #    # # #   #   # # # # #     # # #  ",
+            "# # ##   ## ##  ### #   ### # # ### ### # # ### # # # # ### #     # # # ###  #  ###  #  # # # #  #  ### ##   #  ##  ### ### ### ### ###  "
+        };
+
+        String validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder[] asciiLines = new StringBuilder[H];
+        for (int i = 0; i < H; i++) {
+            asciiLines[i] = new StringBuilder();
+        }
+
+        for (int j = 0; j < input.length(); j++) {
+            char c = input.charAt(j);
+            int index = validChars.indexOf(c);
+            if (index == -1) index = 36; // "?" caractère par défaut
+
+            for (int i = 0; i < H; i++) {
+                int start = index * L;
+                int end = start + L;
+                if (end <= rows[i].length()) {
+                    asciiLines[i].append(rows[i], start, end);
+                } else {
+                    asciiLines[i].append("????");
                 }
-                out.println("<br>");
             }
         }
-    %>
+
+        out.println("<pre>");
+        for (int i = 0; i < H; i++) {
+            out.println(asciiLines[i].toString());
+        }
+        out.println("</pre>");
+    }
+%>
+
 </body>
 </html>
