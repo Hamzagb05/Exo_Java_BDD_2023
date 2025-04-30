@@ -12,7 +12,7 @@
             padding-top: 30px; 
         }
         form {
-            margin-bottom: 20px;
+            margin-bottom: 20px; 
         }
         input[type="text"] {
             padding: 8px;
