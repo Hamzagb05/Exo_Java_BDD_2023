@@ -60,9 +60,6 @@
     if (input != null && !input.isEmpty()) {
         input = input.toUpperCase();
 
-        // A-Z (26) + 0-9 (10) + ? (default) = 37 caractères
-        // => total length par ligne = 37 * L = 148
-
         String[] rows = {
             " #  ##   ## ##  ### ###  ## # # ###  ## # # #   # # # # ### ### ### ##  ### ### # # # # # # # # # # ### ###  #  ##  ## # # ### ###  #  ##  ",
             "# # # # #   # # #   #   #   # #  #    # ##  #   ### # # # # # # # # # # #    #  # # # # # # # #  #    #  # # # # #   # # # #   # # # # #  ",
@@ -80,15 +77,15 @@
         for (int j = 0; j < input.length(); j++) {
             char c = input.charAt(j);
             int index = validChars.indexOf(c);
-            if (index == -1) index = 36; // "?" caractère par défaut
+            if (index == -1) {
+                continue; // ignorer les caractères non valides
+            }
 
             for (int i = 0; i < H; i++) {
                 int start = index * L;
                 int end = start + L;
                 if (end <= rows[i].length()) {
                     asciiLines[i].append(rows[i], start, end);
-                } else {
-                    asciiLines[i].append("????");
                 }
             }
         }
