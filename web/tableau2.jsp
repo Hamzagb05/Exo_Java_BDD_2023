@@ -80,9 +80,9 @@
         <input type="text" name="valeur" placeholder="Valeur entière">
         <br>
         <button type="submit" name="action" value="ajouter">Ajouter</button>
-        <button type="submit" name="action" value="supprimer">Supprimer l9laoui</button>
-        <button type="submit" name="action" value="afficher">Affichiiiiii</button>
-        <button type="submit" name="action" value="vider">Vider zabor mo</button>
+        <button type="submit" name="action" value="supprimer">Supprimer </button>
+        <button type="submit" name="action" value="afficher">Affichier</button>
+        <button type="submit" name="action" value="vider">Vider</button>
     </form>
 
     <div class="message">
